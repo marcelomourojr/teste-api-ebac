@@ -3,7 +3,7 @@ import contrato from '../contracts/produtos.contract'
 
 describe('Testes da Funcionalidade Usuários', () => {
 
-  it.only('Deve validar contrato de usuários', () => {
+  it('Deve validar contrato de usuários', () => { 
     cy.request('usuarios').then(response => {
       return contrato.validateAsync(response.body)
     })
@@ -25,12 +25,13 @@ describe('Testes da Funcionalidade Usuários', () => {
       url: 'usuarios',
       body: {
         "nome": "TESTE",
-        "email": "teste11111@qa.com.br",
+        "email": "testteste1234@qa.com.br",
         "password": "teste",
         "administrador": "true"
       },
   }).then((response) => {
       expect(response.status).to.equal(201)
+      expect(response.body.message).to.equal('Cadastro realizado com sucesso')
     })
   });
 
@@ -47,6 +48,7 @@ describe('Testes da Funcionalidade Usuários', () => {
       },
     }).then((response) => {
       expect(response.status).to.equal(400)
+      expect(response.body.message).to.equal('Endereço de e-mail desconhecido. Verifique novamente ou tente seu nome de usuário.')
     })
   });
 
@@ -57,12 +59,13 @@ describe('Testes da Funcionalidade Usuários', () => {
       url: `usuarios/${userId}`,
       body: {
         "nome": "Fulano da Silva Editado",
-        "email": "editado@qa.com.br",
+        "email": "editado12345@qa.com.br",
         "password": "teste3",
         "administrador": "true"
       },
      }).then((response) => {
-         expect(response.status).to.equal(200)
+         expect(response.status).to.equal(201)
+         expect(response.body.message).to.equal('Detalhes da conta modificados com sucesso.')
       })
   });
 
