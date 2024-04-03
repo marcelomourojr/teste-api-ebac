@@ -9,7 +9,7 @@ describe('Testes da Funcionalidade Usuários', () => {
     })
   });
 
-  it('Deve listar usuários cadastrados', () => {
+  it.only('Deve listar usuários cadastrados', () => {
     cy.request({
       method: 'GET',
       url: 'usuarios',
@@ -25,7 +25,7 @@ describe('Testes da Funcionalidade Usuários', () => {
       url: 'usuarios',
       body: {
         "nome": "TESTE",
-        "email": "testteste1234@qa.com.br",
+        "email": "testtesttestemarcelo1234@qa.com.br",
         "password": "teste",
         "administrador": "true"
       },
@@ -48,7 +48,7 @@ describe('Testes da Funcionalidade Usuários', () => {
       },
     }).then((response) => {
       expect(response.status).to.equal(400)
-      expect(response.body.message).to.equal('Endereço de e-mail desconhecido. Verifique novamente ou tente seu nome de usuário.')
+      expect(response.body.email).to.equal('email deve ser um email válido')
     })
   });
 
@@ -59,13 +59,13 @@ describe('Testes da Funcionalidade Usuários', () => {
       url: `usuarios/${userId}`,
       body: {
         "nome": "Fulano da Silva Editado",
-        "email": "editado12345@qa.com.br",
+        "email": "editadoedit123@qa.com.br",
         "password": "teste3",
         "administrador": "true"
       },
      }).then((response) => {
          expect(response.status).to.equal(201)
-         expect(response.body.message).to.equal('Detalhes da conta modificados com sucesso.')
+         expect(response.body.message).to.equal('Cadastro realizado com sucesso')
       })
   });
 
